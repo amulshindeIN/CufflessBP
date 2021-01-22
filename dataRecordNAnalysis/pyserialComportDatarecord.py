@@ -20,8 +20,8 @@ irValueArray	= np.zeros(nsamples)
 ##----------------------------------------------------------
 # read data from comport
 
-serialPort	= 'COM5'
-baudRate	= 57600
+serialPort	= 'COM3'
+baudRate	= 9600
 ser 		= serial.Serial(serialPort, baudRate, timeout=1)
 
 
@@ -30,12 +30,22 @@ while i < nsamples:
 	arduinoData = ser.readline().decode('ascii')
 	result = [k.strip() for k in arduinoData.split(',')]
 
-	timeValueArray[i]  	= float(result[0])/1000
+	try:
+		timeValueArray[i]  	= result[0]
+		redValueArray[i]  	= result[1]
+		irValueArray[i]   	= result[2]
+		print(timeValueArray[i], redValueArray[i], irValueArray[i])
+	except (ValueError, IndexError) :
+		pass
+	i+=1
+
+'''
+	timeValueArray[i]  	= result[0]
 	redValueArray[i]  	= result[1]
 	irValueArray[i]   	= result[2]
-
-	print(timeValueArray[i], redValueArray[i], irValueArray[i])
-	i+=1
+'''
+	
+	
 try:
 	np.savetxt(fileName, (timeValueArray, redValueArray, irValueArray))
 	#np.savetxt('data_filtered.txt', (self.tfiltered, self.Rfiltered, self.IRfiltered))

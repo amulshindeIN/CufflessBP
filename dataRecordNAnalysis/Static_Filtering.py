@@ -12,7 +12,7 @@ from spO2 import *
 
 # original record
 #path = 'C:\\Users\\amul\\Documents\\Pulse_Oximeter\\Data\\190919\\'
-file = 'pulse_20210120-190721'
+file = 'pulse_20210122-170916'
 ext  = '.txt'
 
 t, RED, IR = np.loadtxt(file + ext)
